@@ -1,0 +1,96 @@
+﻿services:
+#  consul:
+#    image: hashicorp/consul:1.16
+#    container_name: consul
+#    command: agent -dev -client=0.0.0.0 -ui
+#    ports:
+#      - "8500:8500"
+#  mongo:
+#    image: mongo:7
+#    container_name: mongo
+#    ports:
+#      - "27017:27017"
+#    volumes:
+#      - mongo_data:/data/db
+#
+#  neo4j:
+#    image: neo4j:5
+#    container_name: neo4j
+#    environment:
+#      - NEO4J_AUTH=neo4j/password123
+#    ports:
+#      - "7474:7474"   # Neo4j Browser
+#      - "7687:7687"   # Bolt
+#    volumes:
+#      - neo4j_data:/data
+#
+#  userservice:
+#    build:
+#      context: ./UserService
+#      dockerfile: Dockerfile
+#    container_name: userservice
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Docker
+#    depends_on:
+#      - mongo
+#      - consul
+#    ports:
+#      - "5001:8080"
+#
+  eventservice:
+    build:
+      context: ./EventService
+      dockerfile: Dockerfile
+    container_name: eventservice
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+#    depends_on:
+#      - mongo
+#      - consul
+    ports:
+      - "5002:8080"
+#
+#  reservationservice:
+#    build:
+#      context: ./ReservationService
+#      dockerfile: Dockerfile
+#    container_name: reservationservice
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Docker
+#    depends_on:
+#      - mongo
+#      - consul
+#    ports:
+#      - "5003:8080"
+#
+#  userinterestservice:
+#    build:
+#      context: ./UserInterestService
+#      dockerfile: Dockerfile
+#    container_name: userinterestservice
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Docker
+#    depends_on:
+#      - neo4j
+#      - consul
+#    ports:
+#      - "5004:8080"
+
+#  apigateway:
+#    build:
+#      context: ./ApiGateway
+#      dockerfile: Dockerfile
+#    container_name: apigateway
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Docker
+#    depends_on:
+#      - userservice
+#      - eventservice
+#      - reservationservice
+#      - userinterestservice
+#    ports:
+#      - "5000:8080"
+
+#volumes:
+#  mongo_data:
+#  neo4j_data:
